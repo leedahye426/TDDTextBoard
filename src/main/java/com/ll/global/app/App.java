@@ -8,10 +8,28 @@ public class App {
         this.scanner = scanner;
     }
     public void run() {
-//        Scanner scanner = new Scanner(System.in);
         System.out.println("=== 명언 앱 ===");
-        System.out.print("명언 : ");
-        System.out.println("작가 : ");
-        System.out.println("1번 명언이 등록되었습니다.");
+
+        long lastQuotationId = 0;
+
+
+        while(true) {
+
+            final String cmd = scanner.nextLine().trim();
+
+            if(cmd.equals("등록")) {
+                System.out.print("명언 : ");
+                final String content = scanner.nextLine().trim();
+                System.out.print("작가 : ");
+                final String author = scanner.nextLine().trim();
+
+                final long id = ++lastQuotationId;
+
+                System.out.printf("%d번 명언이 등록되었습니다.\n", id);
+            } else if(cmd.equals("종료")) return;
+        }
+
+
+
     }
 }

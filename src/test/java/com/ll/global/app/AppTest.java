@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AppTest {
 
     private  String run(String cmd) {
-        Scanner scanner = TestUtil.genScanner(cmd);
+        Scanner scanner = TestUtil.genScanner(cmd.stripIndent().trim() + "\n종료");
 
         ByteArrayOutputStream byteArrayOutputStream = TestUtil.setOutToByteArray();
 
@@ -26,9 +26,7 @@ public class AppTest {
     @Test
     @DisplayName("프로그램 시작 시 \"== 명언 앱 ==\" 출력")
     void t1() {
-        String out = run("""
-                종료
-                """);
+        String out = run("");
 
         assertThat(out)
                 .contains("== 명언 앱 ==");
@@ -37,9 +35,7 @@ public class AppTest {
     @Test
     @DisplayName("종료")
     void t2() {
-        String out = run("""
-                종료
-                """);
+        String out = run("");
     }
 
     @Test
@@ -49,7 +45,6 @@ public class AppTest {
                 등록
                 현재를 사랑하라.
                 작자미상
-                종료
                 """);
 
         assertThat(out)
@@ -64,7 +59,6 @@ public class AppTest {
                 등록
                 현재를 사랑하라.
                 작자미상
-                종료
                 """);
 
         assertThat(out)
@@ -74,30 +68,33 @@ public class AppTest {
     }
 
     @Test
-    @DisplayName("등록할 때마다 명언 번호가 1씩 증가")
+    @DisplayName("등록할 때마다 명언 번호가 1씩 증가, 1건 등록")
     void t4() {
         String out = run("""
                 등록
                 현재를 사랑하라.
                 작자미상
-                종료
                 """);
 
         assertThat(out)
                 .contains("1번 명언이 등록되었습니다.")
                 .doesNotContain("2번 명언이 등록되었습니다.");
 
-        String out2 = run("""
+    }
+
+    @Test
+    @DisplayName("등록할 때마다 명언 번호가 1씩 증가, 2건 등록")
+    void t5() {
+        String out = run("""
                 등록
                 현재를 사랑하라.
                 작자미상
                 등록
                 과거에 집착하지 마라.
-                작자미상
-                종료
+                작자미상           
                 """);
 
-        assertThat(out2)
+        assertThat(out)
                 .contains("1번 명언이 등록되었습니다.")
                 .contains("2번 명언이 등록되었습니다.")
                 .doesNotContain("3번 명언이 등록되었습니다.");

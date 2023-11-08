@@ -24,37 +24,41 @@ public class App {
 
             final String cmd = scanner.nextLine().trim();
 
-            if (cmd.equals("등록")) {
-                System.out.print("명언 : ");
-                final String content = scanner.nextLine().trim();
-                System.out.print("작가 : ");
-                final String author = scanner.nextLine().trim();
+            switch (cmd) {
+                case "등록" -> {
+                    System.out.print("명언 : ");
+                    final String content = scanner.nextLine().trim();
+                    System.out.print("작가 : ");
+                    final String author = scanner.nextLine().trim();
 
-                final long id = ++lastQuotationId;
+                    final long id = ++lastQuotationId;
 
-                Quotation quotation = new Quotation(id, content, author);
-                quotations.add(quotation);
+                    Quotation quotation = new Quotation(id, content, author);
+                    quotations.add(quotation);
 
-                System.out.printf("%d번 명언이 등록되었습니다.\n", id);
-            } else if (cmd.equals("목록")) {
-                System.out.println("번호 / 작가 / 명언");
-                System.out.println("--------------------");
+                    System.out.printf("%d번 명언이 등록되었습니다.\n", id);
+                }
+                case "목록" -> {
+                    System.out.println("번호 / 작가 / 명언");
+                    System.out.println("--------------------");
 
-                quotations
-                        .reversed()
-                        .forEach(
-                                quotation -> System.out.println(
-                                        "%d / %s / %s".formatted(
-                                                quotation.getId(),
-                                                quotation.getAuthor(),
-                                                quotation.getContent()
-                                        )
-                                )
-                        );
-
-            } else if (cmd.equals("종료")) return;
+                    quotations
+                            .reversed()
+                            .forEach(
+                                    quotation -> System.out.println(
+                                            "%d / %s / %s".formatted(
+                                                    quotation.getId(),
+                                                    quotation.getAuthor(),
+                                                    quotation.getContent()
+                                            )
+                                    )
+                            );
+                }
+                case "종료" -> {
+                    return;
+                }
+            }
         }
-
 
     }
 }
